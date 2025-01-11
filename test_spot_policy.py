@@ -91,8 +91,7 @@ if __name__ == '__main__':
         #                 range(8)]  # Tạo danh sách góc cho từng động cơ tại bước `i_step`
         # motor_angles = env.get_motor_angles()
         # Thực hiện bước mô phỏng với góc động cơ đã có sẵn
-        action = policy.dot(state)
-        state, r, done, info = env.step(action)
+        state, r, done, info = env.step(step_length)
         t_r += r
         # env.draw_trajectory_link_3(interval=0.1, line_color=[1, 0, 0], line_width=1, lifeTime=0)
  # In thông tin về góc động cơ tại mỗi bước (nếu cần thiết)
