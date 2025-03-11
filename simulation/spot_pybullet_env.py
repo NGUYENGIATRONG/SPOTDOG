@@ -253,22 +253,23 @@ class SpotEnv(gym.Env):
         if self._is_wedge:
 
             # wedge_halfheight_offset = 0.01
-            incline_deg = getattr(self, "incline_deg", 20)
+            # incline_deg = getattr(self, "incline_deg", 20)
             # incline_ori = getattr(self, "incline_ori", 0)
             wedge_halfheight_offset = 0.01
-            wedge_halfheight = wedge_halfheight_offset + 1.5 * np.tan(np.radians(incline_deg))*1.7
+            wedge_halfheight = wedge_halfheight_offset + 1.5 * np.tan(np.radians(5))*1.7
             wedgePos = [0, -0.00, wedge_halfheight]
             wedgeOrientation = self._pybullet_client.getQuaternionFromEuler([0, 0, 0])
-
-            wedge_model_path = "simulation/map30xuongdoc/urdf/map30xuongdoc.urdf"
-
+            if not (self.downhill):
+                wedge_model_path = "simulation/lendoc/map" + str(self.incline_deg) + "/urdf/map"+str(self.incline_deg) + ".urdf"
+            else:
+                wedge_model_path = "simulation/xuongdoc/map" + str(self.incline_deg) + "xuongdoc/urdf/map" + str(self.incline_deg) + "xuongdoc.urdf"
             self.wedge = self._pybullet_client.loadURDF(wedge_model_path, wedgePos, wedgeOrientation, useFixedBase=True)
 
             # Đặt ma sát cho miếng cản
             self._pybullet_client.changeDynamics(self.wedge, -1, lateralFriction=1.6)
 
             # Tính toán vị trí khởi đầu của robot trên miếng cản
-            self.robot_landing_height = wedge_halfheight_offset + 0.5 + np.tan(np.radians(incline_deg)) * abs(
+            self.robot_landing_height = wedge_halfheight_offset + 0.5 + np.tan(np.radians(5)) * abs(
                 self.wedge_start)#0.01+0.28+0.26+0.5
             self.INIT_POSITION = [self.INIT_POSITION[0], self.INIT_POSITION[1], self.robot_landing_height]
 
@@ -621,7 +622,7 @@ class SpotEnv(gym.Env):
             # step_height[0] = 0.08
             # step_height[1] = 0.08
             # step_height = 0.04
-        elif  pitch_angle >12:#xuong doc
+        elif  pitch_angle >11:#xuong doc
             step_mode = 3
             hs = 1.3
             omega = hs * no_of_points * self._frequency

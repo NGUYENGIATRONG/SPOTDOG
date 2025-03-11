@@ -34,8 +34,8 @@ def load_simulation():
     wedgeOrientation = p.getQuaternionFromEuler([0, 0, 0])  # Hướng của miếng cản
 
     # Đường dẫn mô hình URDF của miếng cản
-    wedge_model_path = "/home/giatrong/PycharmProjects/pythonProject/simulation/map30xuongdoc/urdf/map30xuongdoc.urdf"
-
+    wedge_model_path = "simulation/xuongdoc/map" + str(15) + "xuongdoc/urdf/map"+str(15) + "xuongdoc" + ".urdf"
+    # wedge_model_path="simulation/xuongdoc/map15xuongdoc/urdf/map15xuongdoc.urdf"
     # Tải mô hình miếng cản
     wedge_id = p.loadURDF(wedge_model_path, wedgePos, wedgeOrientation)
 

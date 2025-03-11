@@ -10,32 +10,33 @@ def update_joint_data():
     state, r, _, angle = env.step(step_length)  # Bước mô phỏng
     t_r_deque.append(t_r_deque[-1] + r)  # Cập nhật tổng reward
     state_deque.append(state)  # Cập nhật trạng thái
+    env.pybullet_client.resetDebugVisualizerCamera(0.95, 0, -0, env.get_base_pos_and_orientation()[0])
 
     # Lấy thông tin góc của các khớp từ robot
     motor_angles = env.get_motor_angles()
-    motor_angles[0] = np.degrees(motor_angles[0]) + 20
-    motor_angles[2] = np.degrees(motor_angles[2]) + 20
-    motor_angles[4] = np.degrees(motor_angles[4]) + 20
-    motor_angles[6] = np.degrees(motor_angles[6]) + 20
-    motor_angles[1] = np.degrees(-motor_angles[1]) - 40 + 180
-    motor_angles[3] = np.degrees(-motor_angles[3]) - 40 + 180
-    motor_angles[5] = np.degrees(-motor_angles[5]) - 40 + 180
-    motor_angles[7] = np.degrees(-motor_angles[7]) - 40 + 180
+    # motor_angles[0] = np.degrees(motor_angles[0]) + 20
+    # motor_angles[2] = np.degrees(motor_angles[2]) + 20
+    # motor_angles[4] = np.degrees(motor_angles[4]) + 20
+    # motor_angles[6] = np.degrees(motor_angles[6]) + 20
+    # motor_angles[1] = np.degrees(-motor_angles[1]) - 40 + 180
+    # motor_angles[3] = np.degrees(-motor_angles[3]) - 40 + 180
+    # motor_angles[5] = np.degrees(-motor_angles[5]) - 40 + 180
+    # motor_angles[7] = np.degrees(-motor_angles[7]) - 40 + 180
     # Lưu các góc khớp vào danh sách (chuyển từ radian sang độ)
     for j in range(8):
-        joint_angles[j].append(motor_angles[j])  # Lưu trực tiếp nếu cần radian
+        joint_angles[j].append(np.degrees(motor_angles[j]))  # Lưu trực tiếp nếu cần radian
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     parser.add_argument('--PolicyDir', help='directory of the policy to be tested', type=str, default='23.04.1.j')
-    parser.add_argument('--FrictionCoeff', help='foot friction value to be set', type=float, default=1.6)
+    parser.add_argument('--FrictionCoeff', help='foot friction value to be set', type=float, default=7.0)
     parser.add_argument('--WedgeIncline', help='wedge incline degree of the wedge', type=int, default=15)
     parser.add_argument('--WedgeOrientation', help='wedge orientation degree of the wedge', type=float, default=0)
     parser.add_argument('--MotorStrength', help='maximum motor Strength to be applied', type=float, default=7.0)
     parser.add_argument('--RandomTest', help='flag to sample test values randomly', type=bool, default=False)
     parser.add_argument('--seed', help='seed for the random sampling', type=float, default=100)
-    parser.add_argument('--EpisodeLength', help='number of gait steps of an episode', type=int, default=2000)
+    parser.add_argument('--EpisodeLength', help='number of gait steps of an episode', type=int, default=5000)
     parser.add_argument('--PerturbForce',
                         help='perturbation force to applied perpendicular to the heading direction of the robot',
                         type=float, default=0.0)
@@ -64,7 +65,7 @@ if __name__ == '__main__':
                        gait='trot',
                        imu_noise=args.AddImuNoise,
                        test=args.Test,
-                       default_pos=(-1, 0, 0.2))
+                       default_pos=(-1.9, -0.08, 0.2))
 
     if args.RandomTest:
         env.set_randomization(default=False)
