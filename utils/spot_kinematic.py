@@ -27,14 +27,6 @@ class Serial2RKin:
             valid = False
             return valid, q
 
-            # c = l1 ** 2 - l2 ** 2 - x ** 2 - y ** 2
-            # if branch == 1:#nhanh1
-            #     q1_temp = np.arctan2(y, x) + np.arccos(-c / np.sqrt(a ** 2 + b ** 2))##phi2
-            # elif branch == 2:#nhanh2
-            #     q1_temp = np.arctan2(y, x) - np.arccos(-c / np.sqrt(a ** 2 + b ** 2))##phi4
-            #
-            # q[0] = np.arctan2(y - l2 * np.sin(q1_temp), x - l2 * np.cos(q1_temp))##phi3 neu la nhanh 2 phi 1 neu la nhanh 1
-            # q[1] = q1_temp - q[0] #phi2-phi1 or phi4-phi3
         cos_theta1 = (l1 ** 2 + r1 ** 2 - l3 ** 2) / (2 * l1 * r1)
         q[0] = atan2(y, x + d / 2) - math.acos(cos_theta1)
         cos_theta2 = (l2 ** 2 + r2 ** 2 - l4 ** 2) / (2 * l2 * r2)

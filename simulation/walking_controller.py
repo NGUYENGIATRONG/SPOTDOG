@@ -173,7 +173,7 @@ class WalkingController:
         # euler_angles = R.from_quat(ori).as_euler('xyz', degrees=True)
         # pitch_angle = euler_angles[1]
         # print(pitch_angle)
-        step_height = 0.08
+        step_height = 0.12
         x_center = 0.02
         y_center = -0.29
 
@@ -192,14 +192,19 @@ class WalkingController:
                     flag = 1
                 y = step_height * np.sin(leg_theta) * flag + y_center + leg.y_shift
                 # print(y)
-                if leg.name in ['fr', 'fl']:
-                    y+= 0.1
-                    if step_mode == 3:
-                        y -=0.06
+                if step_mode == 2:
+                    if leg.name in ['fr', 'fl']:
+                        y+=-0.06
+                    if leg.name in ['br', 'bl']:
+                        y+=0.007
+                # if leg.name in ['fr', 'fl']:
+                #     y+= 0.1
+                    # if step_mode == 3:
+                    #     y -=0.06
                     # if pitch_angle > 5:  # Giả sử góc lớn hơn 5 độ là lên dốc
                     #     y -= 0.05
-                if leg.name in ['br', 'bl']:
-                    y += 0.04
+                # if leg.name in ['br', 'bl']:
+                #     y += 0.04
                     # if pitch_angle > 15:  # Giả sử góc lớn hơn 5 độ là lên dốc
                     #     y -= 0.08
 

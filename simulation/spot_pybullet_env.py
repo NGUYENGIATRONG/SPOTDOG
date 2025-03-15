@@ -607,34 +607,34 @@ class SpotEnv(gym.Env):
         pitch_angle = euler_angles[1]
         print(f"angle {pitch_angle}")
 
-        if 1 < pitch_angle < 12:  # binh thuong
+        if  -12< pitch_angle < 3.5:  # binh thuong
             hs = 1.5
             omega = hs* no_of_points * self._frequency
             print(f"omega{hs}")
             step_mode = 1
             # step_height[0] = 0.13
             # step_height[1] = 0.13
-        elif pitch_angle < -1:  # len doc
-            hs = 1.75
+        elif pitch_angle < -11:  # len doc
+            hs = 1.6
             step_mode = 2
             omega = hs * no_of_points * self._frequency
             print(f"omega{hs}")
             # step_height[0] = 0.08
             # step_height[1] = 0.08
             # step_height = 0.04
-        elif  pitch_angle >11:#xuong doc
+        else :#xuong doc
             step_mode = 3
-            hs = 1.3
+            hs = 1.5
             omega = hs * no_of_points * self._frequency
             print(f"omega{hs}")
-        else:
-            hs = 1.3
-            step_mode = 4
-            omega = hs * no_of_points * self._frequency
-            # step_height[0] = 0.13
-            # step_height[1] = 0.13
-            # step_height = 0.05
-        # omega = 1.5 * no_of_points * self._frequency
+        # else:
+        #     hs = 1.3
+        #     step_mode = 4
+        #     omega = hs * no_of_points * self._frequency
+        #     # step_height[0] = 0.13
+        #     # step_height[1] = 0.13
+        #     # step_height = 0.05
+        # omega = 0.7 * no_of_points * self._frequency
         # self._walkcon.plot_trajectory(self._theta, step_length, no_of_points)
         if self.test is True:
             leg_m_angle_cmd = self._walkcon.run_elliptical(self._theta, self.test)
