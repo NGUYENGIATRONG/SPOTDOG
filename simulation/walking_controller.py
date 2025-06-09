@@ -173,7 +173,8 @@ class WalkingController:
         # euler_angles = R.from_quat(ori).as_euler('xyz', degrees=True)
         # pitch_angle = euler_angles[1]
         # print(pitch_angle)
-        step_height = 0.12
+        step_height = 0.13
+        # step_height = 0.08
         x_center = 0.02
         y_center = -0.29
 
@@ -194,19 +195,33 @@ class WalkingController:
                 # print(y)
                 if step_mode == 2:
                     if leg.name in ['fr', 'fl']:
-                        y+=-0.06
+                        y += -0.05
                     if leg.name in ['br', 'bl']:
-                        y+=0.007
-                # if leg.name in ['fr', 'fl']:
-                #     y+= 0.1
-                    # if step_mode == 3:
-                    #     y -=0.06
-                    # if pitch_angle > 5:  # Giả sử góc lớn hơn 5 độ là lên dốc
-                    #     y -= 0.05
-                # if leg.name in ['br', 'bl']:
-                #     y += 0.04
+                        y += 0.007
+                '''if leg.name in ['fr', 'fl']:
+                    y+= 0.1
+                    if step_mode == 3:
+                        y -=0.06
+                if leg.name in ['br', 'bl']:
+                    y += 0.04
                     # if pitch_angle > 15:  # Giả sử góc lớn hơn 5 độ là lên dốc
-                    #     y -= 0.08
+                    #     y -= 0.08'''#lendoc20
+                '''if leg.name in ['fr', 'fl']:
+                    y += 0.11
+                    if step_mode == 3:
+                        y -= 0.06
+                if leg.name in ['br', 'bl']:
+                    y += 0.04
+                    # if pitch_angle > 15:  # Giả sử góc lớn hơn 5 độ là lên dốc
+                    #     y -= 0.08'''#25
+                # if leg.name in ['fr', 'fl']:
+                #     y += 0.12
+                #     if step_mode == 3:
+                #         y -= 0.06
+                # if leg.name in ['br', 'bl']:
+                #     y += 0.00
+                #     # if pitch_angle > 15:  # Giả sử góc lớn hơn 5 độ là lên dốc
+                #     #     y -= 0.08
 
             leg.x, leg.y = x, y
 

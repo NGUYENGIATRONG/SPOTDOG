@@ -259,14 +259,15 @@ class SpotEnv(gym.Env):
             wedge_halfheight = wedge_halfheight_offset + 1.5 * np.tan(np.radians(5))*1.7
             wedgePos = [0, -0.00, wedge_halfheight]
             wedgeOrientation = self._pybullet_client.getQuaternionFromEuler([0, 0, 0])
-            if not (self.downhill):
-                wedge_model_path = "simulation/lendoc/map" + str(self.incline_deg) + "/urdf/map"+str(self.incline_deg) + ".urdf"
+            if(self.downhill):
+                wedge_model_path = "simulation/lendoc/map" + str(self.incline_deg) +"/map" +str(self.incline_deg)+"lendoc" +"/urdf/map"+str(self.incline_deg) + ".urdf"
             else:
                 wedge_model_path = "simulation/xuongdoc/map" + str(self.incline_deg) + "xuongdoc/urdf/map" + str(self.incline_deg) + "xuongdoc.urdf"
             self.wedge = self._pybullet_client.loadURDF(wedge_model_path, wedgePos, wedgeOrientation, useFixedBase=True)
 
             # Đặt ma sát cho miếng cản
             self._pybullet_client.changeDynamics(self.wedge, -1, lateralFriction=1.6)
+            self._pybullet_client.changeVisualShape(self.wedge, -1, rgbaColor=[0.63, 0.65, 0.69, 1])  # Chuyển sang màu xanh lá
 
             # Tính toán vị trí khởi đầu của robot trên miếng cản
             self.robot_landing_height = wedge_halfheight_offset + 0.5 + np.tan(np.radians(5)) * abs(
@@ -607,14 +608,14 @@ class SpotEnv(gym.Env):
         pitch_angle = euler_angles[1]
         print(f"angle {pitch_angle}")
 
-        if  -12< pitch_angle < 3.5:  # binh thuong
+        if -12 < pitch_angle < 3.5:  # binh thuong
             hs = 1.5
-            omega = hs* no_of_points * self._frequency
+            omega = hs * no_of_points * self._frequency
             print(f"omega{hs}")
             step_mode = 1
             # step_height[0] = 0.13
             # step_height[1] = 0.13
-        elif pitch_angle < -11:  # len doc
+        elif pitch_angle < -13.5:  # len doc
             hs = 1.6
             step_mode = 2
             omega = hs * no_of_points * self._frequency
@@ -622,11 +623,31 @@ class SpotEnv(gym.Env):
             # step_height[0] = 0.08
             # step_height[1] = 0.08
             # step_height = 0.04
-        else :#xuong doc
+        else:  # xuong doc
             step_mode = 3
             hs = 1.5
             omega = hs * no_of_points * self._frequency
             print(f"omega{hs}")
+        # if -1<pitch_angle < 12:  # LEN CAU THANG
+        #     hs = 1.5
+        #     omega = hs * no_of_points * self._frequency
+        #     print(f"omega{hs}")
+        #     step_mode = 1
+        #     # step_height[0] = 0.13
+        #     # step_height[1] = 0.13
+        # elif pitch_angle < -1:  # len doc
+        #     hs = 1.7
+        #     step_mode = 2
+        #     omega = hs * no_of_points * self._frequency
+        #     print(f"omega{hs}")
+        #     # step_height[0] = 0.08
+        #     # step_height[1] = 0.08
+        #     # step_height = 0.04
+        # else:  # xuong doc
+        #     step_mode = 3
+        #     hs = 1.5
+        #     omega = hs * no_of_points * self._frequency
+        #     print(f"omega{hs}")
         # else:
         #     hs = 1.3
         #     step_mode = 4

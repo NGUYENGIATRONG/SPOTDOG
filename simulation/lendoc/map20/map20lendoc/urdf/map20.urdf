@@ -3,21 +3,21 @@
      Commit Version: 1.6.0-1-g15f4949  Build Version: 1.6.7594.29634
      For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
 <robot
-  name="map25xuongdoc">
+  name="map20lendoc">
   <link
     name="base_link">
     <inertial>
       <origin
-        xyz="-0.162724856478983 4.44089209850063E-16 -0.105723710894293"
+        xyz="0.162724856478983 -4.44089209850063E-16 -0.105723710894293"
         rpy="0 0 0" />
       <mass
         value="41.50417784345" />
       <inertia
         ixx="3.66983170241136"
-        ixy="-2.63831095802795E-15"
-        ixz="0.429731665578599"
+        ixy="-3.90022003221305E-15"
+        ixz="-0.429731665578607"
         iyy="4.88311714643189"
-        iyz="1.07263592554195E-15"
+        iyz="-1.02978969229504E-15"
         izz="8.13064841792887" />
     </inertial>
     <visual>
@@ -26,7 +26,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://map25xuongdoc/meshes/base_link.STL" />
+          filename="package://map20lendoc/meshes/base_link.STL" />
       </geometry>
       <material
         name="">
@@ -40,7 +40,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://map25xuongdoc/meshes/base_link.STL" />
+          filename="package://map20lendoc/meshes/base_link.STL" />
       </geometry>
     </collision>
   </link>

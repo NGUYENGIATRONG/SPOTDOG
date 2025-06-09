@@ -31,15 +31,15 @@ def load_simulation():
     # # Tính chiều cao nửa của miếng cản dựa trên độ nghiêng
     wedge_halfheight = wedge_halfheight_offset + 1.5 * np.tan(np.radians(incline_deg)) / 2.0
     wedgePos = [0, 0, wedge_halfheight]  # Vị trí của miếng cản
-    wedgeOrientation = p.getQuaternionFromEuler([0, 0, 0])  # Hướng của miếng cản
+    wedgeOrientation = p.getQuaternionFromEuler([0, 0, 0])  # Hướng của miếng cảns
 
     # Đường dẫn mô hình URDF của miếng cản
-    wedge_model_path = "simulation/xuongdoc/map15xuongdoc/urdf/map15xuongdoc.urdf"
+    wedge_model_path = "simulation/lendoc/map20/map20lendoc/urdf/map20.urdf"
     # wedge_model_path="simulation/xuongdoc/map15xuongdoc/urdf/map15xuongdoc.urdf"
     # Tải mô hình miếng cản
     wedge_id = p.loadURDF(wedge_model_path, wedgePos, wedgeOrientation)
 
-    # Cài đặt ma sát cho miếng cản (giả sử có hàm set_wedge_friction)
+    # Cài đặt ma sát cho miếng cản (giả sử có hàm set_wedge_friction)s
     p.changeDynamics(wedge_id, -1, lateralFriction=1.6)
 
     return physicsClient, plane_id, wedge_id
